@@ -5,10 +5,10 @@ export const ADD_CURRENCIES = 'ADD_CURRENCIES';
 // ACTIONS CREATORS
 export const addEmail = (email) => ({
   type: ADD_EMAIL,
-  email,
+  payload: email,
 });
 
 export const addCurrencies = (currencies) => ({
   type: ADD_CURRENCIES,
-  currencies,
+  payload: currencies,
 });
