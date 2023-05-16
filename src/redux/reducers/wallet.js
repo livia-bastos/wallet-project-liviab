@@ -1,7 +1,8 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-import { ADD_CURRENCIES } from '../actions';
+import { ADD_CURRENCIES, ADD_EXPENSE, EXPENSE_SUM } from '../actions';
 
 const INITIAL_STATE = {
+  total: 0,
   currencies: [], // array de string
   expenses: [], // array de objetos, com cada objeto tendo as chaves id, value, currency, method, tag, description e exchangeRates
   editor: false, // valor booleano que indica de uma despesa está sendo editada
@@ -11,6 +12,15 @@ const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case ADD_CURRENCIES:
     return { ...state, currencies: action.payload };
+  case ADD_EXPENSE:
+    return { ...state, expenses: [...state.expenses, action.payload] };
+  case EXPENSE_SUM:
+    return {
+      ...state,
+      total: state.expenses
+        .reduce((acc, expense) => acc + parseFloat(expense.value)
+        * parseFloat(expense.exchangeRates[expense.currency].ask), 0),
+    };
   default:
     return state;
   }

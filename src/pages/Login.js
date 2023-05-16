@@ -29,7 +29,8 @@ class Login extends React.Component {
     this.setState({ email, emailValid });
   };
 
-  handleClick = () => {
+  handleClick = (event) => {
+    event.preventDefault();
     const { dispatch, history } = this.props;
     const { email } = this.state;
     dispatch(addEmail(email));
@@ -41,32 +42,33 @@ class Login extends React.Component {
     return (
       <div>
         <h2>Login</h2>
-        <label>
-          Email
-          <input
-            type="email"
-            data-testid="email-input"
-            value={ email }
-            onChange={ this.handleChangeEmail }
-          />
-        </label>
-        <label>
-          Senha
-          <input
-            type="password"
-            data-testid="password-input"
-            value={ senha }
-            onChange={ this.handleChangePassword }
-          />
-        </label>
-        <button
-          disabled={ !emailValid || !passwordValid }
-          onClick={ this.handleClick }
-        >
-          Entrar
+        <form>
+          <label>
+            Email
+            <input
+              type="email"
+              data-testid="email-input"
+              value={ email }
+              onChange={ this.handleChangeEmail }
+            />
+          </label>
+          <label>
+            Senha
+            <input
+              type="password"
+              data-testid="password-input"
+              value={ senha }
+              onChange={ this.handleChangePassword }
+            />
+          </label>
+          <button
+            disabled={ !emailValid || !passwordValid }
+            onClick={ this.handleClick }
+          >
+            Entrar
 
-        </button>
-
+          </button>
+        </form>
       </div>
     );
   }
