@@ -5,6 +5,7 @@ export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const REQUEST_SUCCESSFUL = 'REQUEST_SUCCESSFUL';
 export const REQUEST_FAILED = 'REQUEST_FAILED';
 export const EXPENSE_SUM = 'EXPENSE_SUM';
+export const REMOVE_EXPENSE = 'DELETE_EXPENSE';
 
 // ACTIONS CREATORS
 export const addEmail = (email) => ({
@@ -24,6 +25,11 @@ export const addExpense = (expense) => ({
 
 export const expenseSum = () => ({
   type: EXPENSE_SUM,
+});
+
+export const removeExpense = (id) => ({
+  type: REMOVE_EXPENSE,
+  id,
 });
 
 // thunk creator

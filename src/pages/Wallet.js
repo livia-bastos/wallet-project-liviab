@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import WalletForm from '../components/WalletForm';
-import { addCurrencies } from '../redux/actions';
+import { addCurrencies, removeExpense } from '../redux/actions';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -17,11 +17,12 @@ class Wallet extends React.Component {
       .catch(() => {});
   }
 
-  // deleteExpense = (event) => {
-  //   event.preventDefault();
-  //   const updatedList = [...this.state];
-  //   this.setState({ tableData: updatedList });
-  // };
+  deleteExpense = (event) => {
+    const { dispatch } = this.props;
+    const id = Number(event.target.name);
+    event.preventDefault();
+    dispatch(removeExpense(id));
+  };
 
   render() {
     const { expenses } = this.props;
@@ -30,17 +31,19 @@ class Wallet extends React.Component {
         <Header />
         <WalletForm />
         <table>
-          <tr>
-            <th>Descrição</th>
-            <th>Tag</th>
-            <th>Método de pagamento</th>
-            <th>Valor</th>
-            <th>Moeda</th>
-            <th>Câmbio utilizado</th>
-            <th>Valor convertido</th>
-            <th>Moeda de conversão</th>
-            <th>Editar/Excluir</th>
-          </tr>
+          <thead>
+            <tr>
+              <th>Descrição</th>
+              <th>Tag</th>
+              <th>Método de pagamento</th>
+              <th>Valor</th>
+              <th>Moeda</th>
+              <th>Câmbio utilizado</th>
+              <th>Valor convertido</th>
+              <th>Moeda de conversão</th>
+              <th>Editar/Excluir</th>
+            </tr>
+          </thead>
           <tbody>
             { expenses.map((expense) => (
               <tr key={ expense.id }>
@@ -62,6 +65,7 @@ class Wallet extends React.Component {
                 </td>
                 <td>
                   <button
+                    name={ expense.id }
                     onClick={ this.deleteExpense }
                     data-testid="delete-btn"
                   >
@@ -84,11 +88,11 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
-Wallet.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  expenses: PropTypes.shape({
-    map: PropTypes.func.isRequired,
-  }).isRequired,
-};
+// Wallet.propTypes = {
+//   dispatch: PropTypes.func.isRequired,
+//   expenses: PropTypes.array({
+//     map: PropTypes.func.isRequired,
+//   }).isRequired,
+// };
 
 export default connect(mapStateToProps)(Wallet);
