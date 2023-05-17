@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import WalletForm from '../components/WalletForm';
-import { addCurrencies, removeExpense } from '../redux/actions';
+import { addCurrencies, expenseSum, removeExpense } from '../redux/actions';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -22,6 +22,7 @@ class Wallet extends React.Component {
     const id = Number(event.target.name);
     event.preventDefault();
     dispatch(removeExpense(id));
+    dispatch(expenseSum());
   };
 
   render() {
@@ -88,11 +89,16 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
-// Wallet.propTypes = {
-//   dispatch: PropTypes.func.isRequired,
-//   expenses: PropTypes.array({
-//     map: PropTypes.func.isRequired,
-//   }).isRequired,
-// };
+Wallet.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  expenses: PropTypes.arrayOf({
+    id: PropTypes.number.isRequired,
+    description: PropTypes.number.isRequired,
+    method: PropTypes.number.isRequired,
+    tag: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired,
+    currency: PropTypes.number.isRequired,
+  }).isRequired,
+};
 
 export default connect(mapStateToProps)(Wallet);
