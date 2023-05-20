@@ -58,7 +58,7 @@ class Wallet extends React.Component {
                   { parseFloat(expense.exchangeRates[expense.currency].ask)
                     .toFixed(2) }
                 </td>
-                <td>Real</td>
+                {/* <td>Real</td> */}
                 <td>
                   {(parseFloat(expense.value)
                 * parseFloat(expense.exchangeRates[expense.currency].ask)).toFixed(2)}
