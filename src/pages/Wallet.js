@@ -3,7 +3,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import WalletForm from '../components/WalletForm';
-import { addCurrencies, expenseSum, removeExpense } from '../redux/actions';
+import { addCurrencies, expenseSum,
+  removeExpense, changeExpense } from '../redux/actions';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -23,6 +24,13 @@ class Wallet extends React.Component {
     event.preventDefault();
     dispatch(removeExpense(id));
     dispatch(expenseSum());
+  };
+
+  editExpense = (event) => {
+    const { dispatch } = this.props;
+    const id = Number(event.target.name);
+    event.preventDefault();
+    dispatch(changeExpense(id));
   };
 
   render() {
@@ -73,7 +81,14 @@ class Wallet extends React.Component {
                     Excluir
 
                   </button>
-                  <button data-testid="edit-btn">Editar despesa</button>
+                  <button
+                    name={ expense.id }
+                    onClick={ this.editExpense }
+                    data-testid="edit-btn"
+                  >
+                    Editar despesa
+
+                  </button>
                 </td>
               </tr>
             ))}
@@ -87,6 +102,7 @@ class Wallet extends React.Component {
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
+  editor: state.wallet.editor,
 });
 
 Wallet.propTypes = {

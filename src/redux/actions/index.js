@@ -6,6 +6,8 @@ export const REQUEST_SUCCESSFUL = 'REQUEST_SUCCESSFUL';
 export const REQUEST_FAILED = 'REQUEST_FAILED';
 export const EXPENSE_SUM = 'EXPENSE_SUM';
 export const REMOVE_EXPENSE = 'DELETE_EXPENSE';
+export const CHANGE_EXPENSE = 'CHANGE_EXPENSE';
+export const SAVE_EDITED = 'SAVE_EDITED';
 
 // ACTIONS CREATORS
 export const addEmail = (email) => ({
@@ -30,6 +32,16 @@ export const expenseSum = () => ({
 export const removeExpense = (id) => ({
   type: REMOVE_EXPENSE,
   id,
+});
+
+export const changeExpense = (id) => ({
+  type: CHANGE_EXPENSE,
+  id,
+});
+
+export const saveEdited = (editedExpense) => ({
+  type: SAVE_EDITED,
+  editedExpense,
 });
 
 // thunk creator
